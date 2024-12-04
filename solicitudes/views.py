@@ -32,11 +32,14 @@ def solicitar_medio(request):
             solicitud = form.save(commit=False)
             solicitud.usuario = request.user
             solicitud.save()
+            messages.success(request, 'Solicitud creada exitosamente.')
             return redirect('lista_solicitudes')
+        else:
+            messages.error(request, 'Hubo un error al crear la solicitud. Por favor, verifica los datos ingresados. posiblemente estas procesando un mismo medio que otro profesor')
     else:
         form = SolicitudForm()
-    return render(request, 'solicitudes/solicitar_medio.html', {'form': form})
 
+    return render(request, 'solicitudes/solicitar_medio.html', {'form': form})
 @login_required
 def lista_solicitudes(request):
     if request.user.is_staff:
