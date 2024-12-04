@@ -1,5 +1,3 @@
-<!-- solicitudes/templates/solicitudes/solicitar_medio.html -->
-
 {% extends 'solicitudes/base.html' %}
 {% load widget_tweaks %}
 
@@ -10,14 +8,12 @@
 <div class="flex justify-center items-center mt-10">
     <div class="w-full max-w-lg bg-white shadow-lg rounded-lg p-8">
         <div class="flex items-center mb-6">
-            <!-- SVG Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5v2m6-2v2m-6 4h6m-6 4h6m-6 4h6" />
             </svg>
             <h1 class="text-2xl font-bold text-gray-800">Solicitar Medio</h1>
         </div>
 
-        <!-- Mostrar Errores Generales del Formulario -->
         {% if form.non_field_errors %}
             <div class="mb-4 p-3 rounded bg-red-100 text-red-800">
                 {% for error in form.non_field_errors %}
@@ -29,7 +25,6 @@
         <form method="post" class="space-y-6" id="solicitud-form">
             {% csrf_token %}
 
-            <!-- Campo Medio -->
             <div>
                 <label for="id_medio" class="block text-gray-700 font-semibold mb-2">Medio</label>
                 <div class="relative">
@@ -45,7 +40,6 @@
                 {% endif %}
             </div>
 
-            <!-- Campo Aula -->
             <div>
                 <label for="id_aula" class="block text-gray-700 font-semibold mb-2">Aula</label>
                 <div class="relative">
@@ -61,7 +55,6 @@
                 {% endif %}
             </div>
 
-            <!-- Campo Fecha -->
             <div>
                 <label for="id_fecha" class="block text-gray-700 font-semibold mb-2">Fecha</label>
                 <div class="relative">
@@ -93,7 +86,6 @@
                 {% endif %}
             </div>
 
-            <!-- Campo Comentario -->
             <div>
                 <label for="id_comentario" class="block text-gray-700 font-semibold mb-2">Comentario</label>
                 <div class="relative">
@@ -108,8 +100,6 @@
                     <p class="text-red-500 text-sm mt-1">{{ form.comentario.errors }}</p>
                 {% endif %}
             </div>
-
-            <!-- Botón de Envío -->
             <div>
                 <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition duration-200 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -120,12 +110,10 @@
             </div>
         </form>
 
-        <!-- Div para Mostrar Disponibilidad en Tiempo Real (Opcional) -->
         <div id="disponibilidad" class="mt-4"></div>
     </div>
 </div>
 
-<!-- Incluir JavaScript para Manejar AJAX (Opcional) -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const medioSelect = document.getElementById('id_medio');
