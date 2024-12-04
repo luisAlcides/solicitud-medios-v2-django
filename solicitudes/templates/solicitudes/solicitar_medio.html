@@ -25,6 +25,7 @@
         <form method="post" class="space-y-6" id="solicitud-form">
             {% csrf_token %}
 
+            <!-- Campo Medio -->
             <div>
                 <label for="id_medio" class="block text-gray-700 font-semibold mb-2">Medio</label>
                 <div class="relative">
@@ -40,6 +41,7 @@
                 {% endif %}
             </div>
 
+            <!-- Campo Aula -->
             <div>
                 <label for="id_aula" class="block text-gray-700 font-semibold mb-2">Aula</label>
                 <div class="relative">
@@ -55,6 +57,7 @@
                 {% endif %}
             </div>
 
+            <!-- Campo Fecha -->
             <div>
                 <label for="id_fecha" class="block text-gray-700 font-semibold mb-2">Fecha</label>
                 <div class="relative">
@@ -86,6 +89,7 @@
                 {% endif %}
             </div>
 
+            <!-- Campo Comentario -->
             <div>
                 <label for="id_comentario" class="block text-gray-700 font-semibold mb-2">Comentario</label>
                 <div class="relative">
@@ -100,6 +104,8 @@
                     <p class="text-red-500 text-sm mt-1">{{ form.comentario.errors }}</p>
                 {% endif %}
             </div>
+
+            <!-- Botón de Envío -->
             <div>
                 <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition duration-200 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -110,10 +116,12 @@
             </div>
         </form>
 
+        <!-- Div para Mostrar Disponibilidad en Tiempo Real (Opcional) -->
         <div id="disponibilidad" class="mt-4"></div>
     </div>
 </div>
 
+<!-- Incluir JavaScript para Manejar AJAX y Validaciones de Hora -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const medioSelect = document.getElementById('id_medio');
@@ -128,6 +136,19 @@
             const hora = horaInput.value;
 
             if (medio && fecha && hora) {
+                // Validar la hora antes de verificar disponibilidad
+                const horaSeleccionada = hora;
+                const horaMin = '07:00';
+                const horaMax = '17:00';
+
+                if (horaSeleccionada < horaMin || horaSeleccionada > horaMax) {
+                    disponibilidadDiv.innerHTML = '<span class="text-red-500">La hora debe estar entre las 7:00 AM y las 5:00 PM.</span>';
+                    disponibilidadDiv.classList.add('bg-red-100', 'p-2', 'rounded');
+                    disponibilidadDiv.classList.remove('bg-green-100', 'text-green-800');
+                    submitButton.disabled = true;
+                    return; // No continuar con la verificación de disponibilidad
+                }
+
                 fetch(`/verificar_disponibilidad/?medio_id=${medio}&fecha=${fecha}&hora=${hora}`)
                     .then(response => response.json())
                     .then(data => {
@@ -157,9 +178,24 @@
             }
         }
 
+        function validarHora() {
+            const hora = horaInput.value;
+            const horaMin = '07:00';
+            const horaMax = '17:00';
+
+            if (hora && (hora < horaMin || hora > horaMax)) {
+                disponibilidadDiv.innerHTML = '<span class="text-red-500">La hora debe estar entre las 7:00 AM y las 5:00 PM.</span>';
+                disponibilidadDiv.classList.add('bg-red-100', 'p-2', 'rounded');
+                disponibilidadDiv.classList.remove('bg-green-100', 'text-green-800');
+                submitButton.disabled = true;
+            } else {
+                verificarDisponibilidad();
+            }
+        }
+
         medioSelect.addEventListener('change', verificarDisponibilidad);
         fechaInput.addEventListener('change', verificarDisponibilidad);
-        horaInput.addEventListener('change', verificarDisponibilidad);
+        horaInput.addEventListener('change', validarHora);
     });
 </script>
 
