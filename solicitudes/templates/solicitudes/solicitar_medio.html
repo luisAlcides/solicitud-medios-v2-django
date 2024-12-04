@@ -1,0 +1,106 @@
+
+{% extends 'solicitudes/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Solicitar Medio{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center mt-10">
+    <div class="w-full max-w-lg bg-white shadow-lg rounded-lg p-8">
+        <div class="flex items-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5v2m6-2v2m-6 4h6m-6 4h6m-6 4h6" />
+            </svg>
+            <h1 class="text-2xl font-bold text-gray-800">Solicitar Medio</h1>
+        </div>
+
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                <label for="id_medio" class="block text-gray-700 font-semibold mb-2">Medio</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zM12 8c-2.21 0-4 1.79-4 4v4c0 2.21 1.79 4 4 4s4-1.79 4-4v-4c0-2.21-1.79-4-4-4z" />
+                        </svg>
+                    </div>
+                    {{ form.medio|add_class:"pl-10 pr-4 py-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                </div>
+                {% if form.medio.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.medio.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="id_aula" class="block text-gray-700 font-semibold mb-2">Aula</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    {{ form.aula|add_class:"pl-10 pr-4 py-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                </div>
+                {% if form.aula.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.aula.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="id_fecha" class="block text-gray-700 font-semibold mb-2">Fecha</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    {{ form.fecha|add_class:"pl-10 pr-4 py-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                </div>
+                {% if form.fecha.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.fecha.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="id_hora" class="block text-gray-700 font-semibold mb-2">Hora</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6 1a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    {{ form.hora|add_class:"pl-10 pr-4 py-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                </div>
+                {% if form.hora.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.hora.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="id_comentario" class="block text-gray-700 font-semibold mb-2">Comentario</label>
+                <div class="relative">
+                    <div class="absolute top-0 left-0 pl-3 pt-3 pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-3.582 8-8 8a8.018 8.018 0 01-4-1.172L3 20l1.172-4A8.018 8.018 0 0112 4c4.418 0 8 3.582 8 8z" />
+                        </svg>
+                    </div>
+                    {{ form.comentario|add_class:"pl-10 pr-4 py-2 border rounded w-full h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                </div>
+                {% if form.comentario.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.comentario.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition duration-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    Enviar Solicitud
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

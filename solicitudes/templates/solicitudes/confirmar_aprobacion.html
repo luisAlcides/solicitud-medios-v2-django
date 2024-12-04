@@ -1,0 +1,13 @@
+{% extends 'solicitudes/base.html' %}
+
+{% block title %}Aprobar Solicitud{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Aprobar Solicitud</h1>
+<p>¿Estás seguro de que deseas aprobar la solicitud <strong>#{{ solicitud.id }}</strong>?</p>
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Aprobar</button>
+    <a href="{% url 'lista_solicitudes_admin' %}" class="ml-2 text-gray-700">Cancelar</a>
+</form>
+{% endblock %}

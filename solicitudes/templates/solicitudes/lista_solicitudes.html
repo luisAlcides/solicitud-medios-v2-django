@@ -1,0 +1,49 @@
+{% extends 'solicitudes/base.html' %}
+
+{% block title %}Mis Solicitudes{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Solicitudes</h1>
+<table class="min-w-full bg-white">
+    <thead>
+        <tr>
+            <th class="py-2">Medio</th>
+            <th class="py-2">Aula</th>
+            <th class="py-2">Fecha</th>
+            <th class="py-2">Hora</th>
+            <th class="py-2">Estado</th>
+            {% if user.is_staff %}
+            <th class="py-2">Usuario</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for solicitud in solicitudes %}
+        <tr class="text-center">
+            <td class="py-2 border">{{ solicitud.medio.nombre }}</td>
+            <td class="py-2 border">{{ solicitud.aula.nombre }}</td>
+            <td class="py-2 border">{{ solicitud.fecha }}</td>
+            <td class="py-2 border">{{ solicitud.hora }}</td>
+            <td class="py-2 border">
+                {% if solicitud.estado == 'PENDIENTE' %}
+                    <span class="text-yellow-500 font-semibold">{{ solicitud.get_estado_display }}</span>
+                {% elif solicitud.estado == 'CONFIRMADA' %}
+                    <span class="text-green-500 font-semibold">{{ solicitud.get_estado_display }}</span>
+                {% elif solicitud.estado == 'RECHAZADA' %}
+                    <span class="text-red-500 font-semibold">{{ solicitud.get_estado_display }}</span>
+                {% else %}
+                    {{ solicitud.get_estado_display }}
+                {% endif %}
+            </td>
+            {% if user.is_staff %}
+            <td class="py-2 border">{{ solicitud.usuario.username }}</td>
+            {% endif %}
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="{% if user.is_staff %}6{% else %}5{% endif %}" class="py-2 text-center">No hay solicitudes.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

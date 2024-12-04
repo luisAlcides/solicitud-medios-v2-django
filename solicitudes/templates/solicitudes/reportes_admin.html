@@ -1,0 +1,87 @@
+<!-- solicitudes/templates/solicitudes/lista_solicitudes_pdf.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Solicitudes</title>
+    <style>
+        /* Estilos básicos para el PDF */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #333;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1D4ED8; /* Azul */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #bbb;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #1D4ED8; /* Azul */
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
+            font-size: 10px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Solicitudes</h1>
+    <p><strong>Generado por:</strong> {{ usuario.username }}</p>
+    <p><strong>Fecha de Generación:</strong> {{ now|date:"d/m/Y H:i" }}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Medio</th>
+                <th>Aula</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Comentario</th>
+                <th>Estado</th>
+                <th>Creado En</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for solicitud in solicitudes %}
+                <tr>
+                    <td>{{ solicitud.id }}</td>
+                    <td>{{ solicitud.usuario.username }}</td>
+                    <td>{{ solicitud.medio }}</td>
+                    <td>{{ solicitud.aula }}</td>
+                    <td>{{ solicitud.fecha|date:"d/m/Y" }}</td>
+                    <td>{{ solicitud.hora|time:"H:i" }}</td>
+                    <td>{{ solicitud.comentario|default:"-" }}</td>
+                    <td>{{ solicitud.get_estado_display }}</td>
+                    <td>{{ solicitud.creado_en|date:"d/m/Y H:i" }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="footer">
+        © 2024 UNI. Todos los derechos reservados.
+    </div>
+</body>
+</html>

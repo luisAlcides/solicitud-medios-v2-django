@@ -1,0 +1,57 @@
+{% extends 'solicitudes/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Mi Perfil{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center mt-10">
+    <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
+        <div class="flex items-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.485 0 4.804.605 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <h1 class="text-2xl font-bold text-gray-800">Mi Perfil</h1>
+        </div>
+
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                <label for="id_username" class="block text-gray-700 font-semibold mb-2">Usuario</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-5.523 0-10 2.686-10 6v2h20v-2c0-3.314-4.477-6-10-6z" />
+                        </svg>
+                    </div>
+                    <input type="text" id="id_username" name="username" value="{{ user.username }}" readonly class="pl-10 pr-4 py-2 border rounded w-full bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+            </div>
+
+            <div>
+                <label for="id_departamento" class="block text-gray-700 font-semibold mb-2">Departamento</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zM12 8c-2.21 0-4 1.79-4 4v4c0 2.21 1.79 4 4 4s4-1.79 4-4v-4c0-2.21-1.79-4-4-4z" />
+                        </svg>
+                    </div>
+                    {{ form.departamento|add_class:"pl-10 pr-4 py-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-green-500" }}
+                </div>
+                {% if form.departamento.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.departamento.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <button type="submit" class="w-full bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition duration-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 0A2 2 0 0122 9.17V20a2 2 0 01-2 2H4a2 2 0 01-2-2V9.17a2 2 0 012-2h.582M9 15l3-3m0 0l3 3m-3-3v12" />
+                    </svg>
+                    Actualizar Perfil
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

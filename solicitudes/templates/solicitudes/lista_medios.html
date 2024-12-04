@@ -1,0 +1,27 @@
+{% extends 'solicitudes/base.html' %}
+
+{% block title %}Lista de Medios{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Medios Disponibles</h1>
+<table class="min-w-full bg-white">
+    <thead>
+        <tr>
+            <th class="py-2">Nombre</th>
+            <th class="py-2">Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for medio in medios %}
+        <tr class="text-center">
+            <td class="py-2 border">{{ medio.nombre }}</td>
+            <td class="py-2 border">{{ medio.descripcion }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2" class="py-2">No hay medios disponibles.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

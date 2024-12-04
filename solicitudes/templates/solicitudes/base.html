@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Solicitud de Medios{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col min-h-screen">
+    <div class="flex flex-1">
+        <aside class="w-64 bg-gray-800 text-white min-h-screen">
+            <div class="p-4 text-2xl font-bold">UNI</div>
+            <div class="p-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Logo_UNI_%281%29.png" alt="UNI Logo" class="h-12 mx-auto">
+            </div>
+            <nav class="mt-10">
+                <a href="{% url 'home' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Inicio</a>
+                <a href="{% url 'lista_medios' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Medios</a>
+                <a href="{% url 'solicitar_medio' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Solicitar Medio</a>
+                <a href="{% url 'lista_solicitudes' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Lista de Solicitudes</a>
+                <a href="{% url 'perfil_usuario' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Mi Perfil</a>
+                {% if user.is_staff %}
+                <a href="{% url 'reportes_admin' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Reportes</a>
+                <a href="/admin/" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Admin</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Cerrar Sesión</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Iniciar Sesión</a>
+                {% endif %}
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6 bg-gray-100">
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+
+    <footer class="bg-gray-800 text-white text-center p-4">
+        © 2024 UNI. Todos los derechos reservados.
+    </footer>
+</body>
+</html>

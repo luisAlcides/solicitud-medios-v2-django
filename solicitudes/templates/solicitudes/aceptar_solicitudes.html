@@ -1,0 +1,79 @@
+<!-- solicitudes/templates/solicitudes/aceptar_solicitudes.html -->
+
+{% extends 'solicitudes/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Aceptar Solicitudes{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6">Aceptar Solicitudes</h1>
+
+    <!-- Mensajes de Feedback -->
+    {% if messages %}
+        <div class="space-y-4 mb-6">
+            {% for message in messages %}
+                <div class="p-4 rounded shadow {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if solicitudes %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 border-b">Usuario</th>
+                        <th class="py-2 px-4 border-b">Medio</th>
+                        <th class="py-2 px-4 border-b">Aula</th>
+                        <th class="py-2 px-4 border-b">Fecha</th>
+                        <th class="py-2 px-4 border-b">Hora</th>
+                        <th class="py-2 px-4 border-b">Comentario</th>
+                        <th class="py-2 px-4 border-b">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitud in solicitudes %}
+                        <tr class="text-center">
+                            <td class="py-2 px-4 border-b">{{ solicitud.usuario.username }}</td>
+                            <td class="py-2 px-4 border-b">{{ solicitud.medio }}</td>
+                            <td class="py-2 px-4 border-b">{{ solicitud.aula }}</td>
+                            <td class="py-2 px-4 border-b">{{ solicitud.fecha }}</td>
+                            <td class="py-2 px-4 border-b">{{ solicitud.hora }}</td>
+                            <td class="py-2 px-4 border-b">{{ solicitud.comentario }}</td>
+                            <td class="py-2 px-4 border-b">
+                                <form method="post" class="inline-block">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="solicitud_id" value="{{ solicitud.id }}">
+                                    <button type="submit" name="accion" value="aceptar" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded mr-2 flex items-center">
+                                        <!-- Icono de Aceptar -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        Aceptar
+                                    </button>
+                                </form>
+                                <form method="post" class="inline-block">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="solicitud_id" value="{{ solicitud.id }}">
+                                    <button type="submit" name="accion" value="rechazar" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded flex items-center">
+                                        <!-- Icono de Rechazar -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        Rechazar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-gray-700">No hay solicitudes pendientes.</p>
+    {% endif %}
+</div>
+{% endblock %}

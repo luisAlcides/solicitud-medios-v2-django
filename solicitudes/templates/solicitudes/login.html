@@ -1,0 +1,41 @@
+{% extends 'solicitudes/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+        <div class="mb-6 text-center">
+            <h1 class="text-3xl font-bold text-gray-800">Iniciar Sesión</h1>
+        </div>
+
+        {% if error %}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
+                <span class="block sm:inline">{{ error }}</span>
+            </div>
+        {% endif %}
+
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+
+            <div class="relative">
+                <label for="username" class="block text-gray-700 font-semibold mb-2">Usuario</label>
+                <input type="text" name="username" id="username" class="w-full pl-10 pr-4 py-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingresa tu usuario" required>
+            </div>
+
+            <div class="relative">
+                <label for="password" class="block text-gray-700 font-semibold mb-2">Contraseña</label>
+                <input type="password" name="password" id="password" class="w-full pl-10 pr-4 py-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingresa tu contraseña" required>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-3 px-4 rounded hover:bg-blue-600 transition duration-200 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                Entrar
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
